@@ -1,0 +1,133 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amstext}
+\usepackage{amsmath}
+\title{HW 1: Game-theoretic Probability }
+\author{Ziyue Wang}
+\date{February 2021}
+
+\def\uE{\overline{\mathbb{E}}}
+\def\sE{\underline{\mathbb{E}}}
+\def\t{\mathcal{T}}
+\def\T{\mathbf{T}}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
+\begin{document}
+
+\maketitle
+
+\section*{Exercise 2.1}
+We show the five properties by the order of $1, 5, 2, 3, 4$. Each as a new lemma.
+
+\begin{lemma}
+ $\uE(X_1 + X_2) \leq \uE(X_1) + \uE(X_2)$.
+\end{lemma} 
+\begin{proof}
+Denote $\{\t_0 | \t \in \T \ \text{and}\  \t_N \geq X_1 \}$ by $A$, $\{\t_0 | \t \in \T \ \text{and}\  \t_N \geq X_2 \}$ by $B$ and $\{\t_0 | \t \in \T \ \text{and}\  \t_N \geq X_1 +X_2\}$ by $C$. Clearly $A,B,C \subseteq \mathbb{R}$. 
+
+If $A+B \subseteq C$ where $A+B:=\{a+b: a\in A, b\in B\}$, then we have 
+\begin{equation}
+    \inf C \geq \inf(A+B) = \inf A + \inf B.
+\end{equation}
+So it suffices to show $A+B \subseteq C$. 
+
+For any $\t^{(1)}_0 \in A$ and $\t^{(2)}_0 \in B$, by definition we have $\t^{(1)}_N \geq X_1$ and $\t^{(2)}_N \geq X_2$ thus $\t^{(1)}_N + \t^{(2)}_N \geq X_1 + X_2$. (Actually we are talking about an equivalent class of capital processes behind the real number $\t_0$. The number of corresponding processes could be more than one, but as long as they share the same properties as addressed by the set we are fine). Please note that $\t^{(1)}_N + \t^{(2)}_N \in \T$ because strategies form a vector space as described in page $12$ of the book. Together we verified that $\t^{(1)}_0 + \t^{(2)}_0 \in C$. 
+\end{proof}
+
+\begin{lemma}
+ If $X(\omega) = c$ for all $\omega \in \Omega$, then $\uE(X) = c$.
+\end{lemma} 
+\begin{proof}
+It suffices to show that 
+
+1) for any $\t \in \T$, if $T_N(\omega) \geq c$ for all $\omega \in \Omega$, then $T_{i}(\omega) \geq c$ for all $i \in 0,...,N$ and all $\omega \in \Omega$. 
+
+2) There exists a $\t \in \T$ such that $\t_0 = c$ and $\t_N(\omega) \geq c$ for all $\omega \in \Omega$.
+
+For any $\t \in \T$ such that $\t_0 < c$, let $\omega^* = y_1y_2\dots y_N$ such that $y_i = -\text{sign}(M_i)$. Then it's obvious that in this path the skeptic keeps losing, so $T_N(\omega) \leq T_0 < c$. This proves the first claim.
+
+For the second claim, just choose the strategy such that $M_i = 0$ for all $i \in 1,...,N$ then the corresponding capital process $\t$ satisfies $\t_N(\omega) = \t_0 = c$ for all $\omega \in \Omega$.
+\end{proof}
+
+\begin{lemma}
+ If $c \in \mathbb{R}$, then $\uE(X+c) = \uE(X) + c$.
+\end{lemma} 
+\begin{proof}
+Denote $\{\t_0 | \t \in \T \ \text{and}\  \t_N \geq X \}$ by $A$, $\{\t_0 | \t \in \T \ \text{and}\  \t_N \geq c \}$ by $B$ and $\{\t_0 | \t \in \T \ \text{and}\  \t_N \geq X +c\}$ by $C$.
+
+By properties $5$ we know that for a real number $c$ and a constant function $c(\omega) \equiv c$ (with abusing the notation of $c$),
+\begin{equation}
+  \uE(c) = c.
+\end{equation}
+So $\uE(X) + c = \uE(X) + \uE(c)$. Since $\inf(A+B) = \inf A + \inf B$, it suffices to show that $C=A+B$. The direction $A+B \subseteq C$ is true as shown in the proof for property $1$, we will show  $C \subseteq A+B$.
+
+For any $\t_0 \in C$ it is true that $\t_N - c \geq X$ and $\t-c \in \T$. Thus, $\t_0 -c \in A$ and $\t_0 = (\t_0 -c) + c $ is in $A+B$ by definition of $A+B$.   
+\end{proof}
+
+\begin{lemma}
+ If $c \geq 0$, then $\uE(cX) = c\uE(X)$.
+\end{lemma} 
+\begin{proof}
+Denote $\{\t_0 | \t \in \T \ \text{and}\  \t_N \geq cX \}$ by $A$ and $\{\t_0 | \t \in \T \ \text{and}\  \t_N \geq X \}$ by $B$. Also define $cB := \{c \cdot b: b \in B\}$. It is true that $\inf cB = c \inf B$ since $c > 0$, so to show $\inf A = c\inf B$ it suffices to show $cB = A$.
+
+For any $\t_0 \in A$, it is true that $\t_N/c \geq X$ and $\t/c \in \T$. Thus, $\t_0 /c \in B$ and this implies $\t_0 \in cB$. So $A \subseteq cB$.
+
+For any $\t_0 \in cB$, it is true that $\t_0/c \in B$ thus $\t_N/c \geq X$. As a result, $\t_N \geq cX$ and $\t_N \in \T$. This proves that $cB \subseteq A$.
+\end{proof}
+
+\begin{lemma}
+ If $X_1 \leq X_2$, then $\uE(X_1) \leq \uE(X_2)$.
+\end{lemma}
+\begin{proof}
+Denote $\{\t_0 | \t \in \T \ \text{and}\  \t_N \geq X_1 \}$ by $A$ and $\{\t_0 | \t \in \T \ \text{and}\  \t_N \geq X_2 \}$ by $B$. If $B \subseteq A$ then $\inf A \leq \inf B$. So it suffices to show $B \subseteq A$.
+
+For any $\t_0 \in B$, the corresponding $\t \in \T$ satisfies $\t_N \geq X_2$. Since $X_2 \geq X_1$, we have $\t_N \geq X_1$ and $\t_0 \in A$. This implies $B \subseteq A$.
+\end{proof}
+
+\begin{lemma}
+For $\sE$, only property $1$ changes. The five properties are
+\begin{enumerate}
+        \item  $\sE(X_1 + X_2) \geq \sE(X_1) + \sE(X_2)$.
+    \item  If $c \in \mathbb{R}$, then $\sE(X+c) = \sE(X) + c$.
+    \item  If $c \geq 0$, then $\sE(cX) = c\sE(X)$.
+    \item  If $X_1 \leq X_2$, then $\sE(X_1) \leq \sE(X_2)$.
+    \item  If $X(\omega) = c$ for all $\omega \in \Omega$, then $\sE(X) = c$.
+\end{enumerate}
+\end{lemma}
+
+\section*{Exercise 2.2}
+It suffices to show the two sets are the same, that is, $\{\alpha | \exists \t \in \T_0: \t_N + \alpha \geq X\} =  \{\t_0 | \t \in \T, \t_N \geq X\} $.
+
+For any $y \in \{\alpha | \exists \t \in \T_0: \t_N + \alpha \geq X\}$, by definition there exists $\t \in \T$ such that $\t_0 = 0$ and $\t_N + y \geq X$. Let $\t^* := \t + y$, then $\t^* \in \T$ and $\t^*_0 = y$, more importantly, since $\t_N + y \geq X$ we have $\t^*_N := \t_N + y \geq X$. Thus, $y \in \{\t_0 | \t \in \T, \t_N \geq X\}$. This shows that  $\{\alpha | \exists \t \in \T_0: \t_N + \alpha \geq X\} \subseteq \{\t_0 | \t \in \T, \t_N \geq X\}.$
+
+For any $y \in  \{\t_0 | \t \in \T, \t_N \geq X\}$, by definition there is some $\t \in \T$ with $\t_0 = y$ and $\t_N \geq X$. Similarly, define $\t^* := \t - y$, then we have $\t^* \in T$ and $\t^*_0 = 0$. Also, by definition we have $\t^*_N := \t_N -y \geq X$ which implies that $y \in \{\alpha | \exists \t \in \T_0: \t_N + \alpha \geq X\}$. This shows $ \{\t_0 | \t \in \T, \t_N \geq X\} \subseteq\{\alpha | \exists \t \in \T_0: \t_N + \alpha \geq X\} .$
+
+Together we know $ \{\t_0 | \t \in \T, \t_N \geq X\} = \{\alpha | \exists \t \in \T_0: \t_N + \alpha \geq X\}$ and the proof is complete. 
+
+\begin{remark}[$\t_0 \ \text{and}\  \t$]
+I'm still a little bit unsure about taking $\{\t_0 | \t \in \T, \t_N \geq X\}$ as just a set of real numbers and arguing using a corresponding $\t \in \T$, because each $\t_0 \in \mathbb{R}$ has not just one but an equivalent class of capital processes behind it. I think it's fine because in the end whatever the $\t$ is, I only use the properties that in this $[\t]$ class $\t \in \T$, $\t_N$ have the same lower bounds and $\t_0$ are the same. Maybe I should use the equivalent definition $\{\alpha | \exists \t \in \T_0: \t_N + \alpha \geq X\}$ for the proof of Exercise $2.1$.  
+\end{remark}
+
+
+\section*{Exercise 2.7}
+
+$\quad\;\, \mathbf{1}$. Set $2\exp(-\epsilon^2 N/4) = 1$, we have $\epsilon^2 N = 4\log 2$. Since it's monotone we just need $\epsilon^2 N \geq 4\log 2$. For the other bound we need $\epsilon^2 N \geq 1$ to be meaningful.
+
+$\mathbf{2}$. Solve $1/x = 2\exp(-x/4)$ for $x > 0$. As far as I know there is no closed form so I use the Lambert $W$ function $W_k(x)$ to denote the solution. It is defined as follows:
+For real number $x$ and $y$, the equation $y\exp(y)=x$ can be solved for $y=W_0(x)$ or $y=W_{-1}(x)$ if $ -1/e \leq x\leq 0$, if $x < 0$ then it can only be solved by $y=W_0(x)$. If $x$ is less than $-1/e$ then there is no real solution. Also, $W_0(x) \geq W_1(x)$ on their shared domain.
+
+So for our question, the equation is equivalent to 
+\begin{equation}
+    (-x/4)\exp(-x/4) = -1/8.
+\end{equation}
+Clearly $-1/e < -1/8 < 0$, so we have two solutions $x = -4W_{-1}(-1/8)$ and $x=-4 W_{0}(-1/8)$. Since $W_{-1}(x) \leq W_{0}(x) < 0$ on $[-1/e, 0)$, the largest value of the solution is $-4W_{-1}(-1/8)$ which is approximately $13.046$. It is easy to check that between the two solution $1/x$ is less or equal to $2\exp(-x/4)$ so $13.046$ is the largest value for $\epsilon^2 N$ such that $1/\epsilon^2 N \leq 2\exp(-x/4)$.
+
+(Or maybe do some expansion and get an approximate result?)
+
+$\mathbf{3}$. When $\epsilon^2 N = 20$, the two bounds are $1/20 = 2\exp(-\log40)$ and $2\exp(-5)$. Since $\exp(5) > 5^e > 5^{2.5} > 25 \times 2 = 50 > 40 $, we know that $5 > \log40$ so $1/\epsilon^2 N$ is worse.
+
+Or we can simply use the result in above question and say that the bound $1/\epsilon^2 N$ is worse than $2\exp(-5)$ at $\epsilon^2 N =20 > 13.046$. 
+
+\end{document}
